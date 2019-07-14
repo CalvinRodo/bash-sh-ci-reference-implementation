@@ -1,0 +1,12 @@
+
+{
+  "version": "0.1",
+  "language": "en",
+  "words": [
+    "shfmt",
+    "ITSG",
+    "koalaman",
+    "shellcheck"
+  ],
+  "ignorePaths":  ["node_modules"]
+}
