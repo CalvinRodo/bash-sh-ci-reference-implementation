@@ -1,0 +1,13 @@
+language: go
+go: 
+  - 1.11.x
+
+services:
+  - docker
+
+install:
+  - go get mvdan.cc/sh/cmd/shfmt
+
+script: 
+  - docker run --rm -v "$PWD:/mnt" koalaman/shellcheck:stable script.sh
+  - shfmt -ci -i 2 -d script.sh
