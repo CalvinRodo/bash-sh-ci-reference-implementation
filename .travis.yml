@@ -12,3 +12,4 @@ script:
   - docker run --rm -v "$PWD:/mnt" koalaman/shellcheck:stable example-script.sh
   - shfmt -ci -i 2 -d example-script.sh
   - docker run --rm -i -v $PWD:/lint/input:ro zemanlx/remark-lint --frail .
+  - docker run -v $PWD:/markdown 06kellyjac/markdownlint-cli README.md a.md b.md c.md other_dir/other.md
