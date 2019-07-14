@@ -4,24 +4,35 @@
 
 ### Travis CI
 
+ [![Build Status](https://travis-ci.com/CalvinRodo/bash-sh-ci-reference-implementation.svg?branch=master)](https://travis-ci.com/CalvinRodo/bash-sh-ci-reference-implementation)
+
+
 We use the go language environment since it's required by shfmt, this saves us from having to install go ourselves.
 
 ## Linters - Static Code Analysis
 
-## Error Checking
+Linters or Static Code Analyzers will check the programs source code for bugs, errors, and formatting issues. 
 
-**ITSG-33 Control** *SA-11(1) Developer Security Testing*
+Static Code Analysis Satisfies the ITSG33 Control *SA-11(1) Static Code Analysis*
 
-Use ShellCheck to check your bash/sh for known issues.
+### Error Checking
 
-https://github.com/koalaman/shellcheck
+Use `ShellCheck` to check your bash/sh for known issues.
 
-## Pretty Printers
+**Link to tool:** https://github.com/koalaman/shellcheck
 
-Use `shfmt` to ensure your script is formatted using a standard format
+#### Command to Run
+>To simplify installation of this tool we are running it from inside a docker container
 
-Run shfmt from inside a docker container 
+`docker run --rm -v "$PWD:/mnt" koalaman/shellcheck:stable script-to-test.sh`
 
-https://github.com/tmknom/shfmt
+### Pretty Printers
 
-docker run --rm -v $PWD:/work tmknom/shfmt -i 2 -ci -w **/*.sh
+Use `shfmt` to ensure your script is formatted using a standard format. We are using the [Google Shell Style Guide](https://google.github.io/styleguide/shell.xml) to format our scripts.
+
+**Link to tool:** https://github.com/mvdan/sh
+
+#### Command to run
+> Unfortunately we cannot run shfmt from within a docker container as the diff functionality currently doesn't work  
+
+`shfmt -d -i 2 -ci -w script-to-test.sh`
