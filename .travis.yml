@@ -1,15 +1,22 @@
-language: go
-go: 
-  - 1.11.x
+matrix:
+  include:
+    - language: go
+      go: 
+      - 1.11.x
+      install:
+      - go get mvdan.cc/sh/cmd/shfmt
 
-services:
-  - docker
+      script: 
+      - docker run --rm -v "$PWD:/mnt" koalaman/shellcheck:stable example-script.sh
+      - shfmt -ci -i 2 -d example-script.sh
+    - language: node_js
+      node_js:
+        "lts/*"
+      install: 
+      - yarn install
+      cache: yarn
+      script: 
+      - yarn lint
+      - yarn spellcheck
+      - find . -not -path './**/node_modules/*' -name "*.md" | xargs docker run --rm --read-only -v $PWD:/data robertbeal/markdown-link-checker
 
-install:
-  - go get mvdan.cc/sh/cmd/shfmt
-
-script: 
-  - docker run --rm -v "$PWD:/mnt" koalaman/shellcheck:stable example-script.sh
-  - shfmt -ci -i 2 -d example-script.sh
-  - docker run --rm -i -v $PWD:/lint/input:ro zemanlx/remark-lint --frail .
-  - docker run -v $PWD:/markdown 06kellyjac/markdownlint-cli README.md a.md b.md c.md other_dir/other.md
