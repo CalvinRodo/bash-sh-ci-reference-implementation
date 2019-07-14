@@ -4,6 +4,6 @@ echo "Hello World"
 
 if true; then
 
-         echo "do something"
+  echo "do something"
 
 fi
